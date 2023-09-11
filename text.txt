@@ -1,0 +1,8 @@
+название response.xpath('//mts-tariff-card//*//span[@class="card-title__link"]/text()').getall()
+
+Описание response.xpath('//mts-tariff-card//*//div[@class="card-description card-description__margin"]/text()').getall()
+
+Цена response.xpath('//mts-tariff-card//*//div[@class="price-main"]//span/text()').getall() сделать для двух
+
+
+PageMethod("screenshot", path="example.png", full_page=True),
