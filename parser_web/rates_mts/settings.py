@@ -62,9 +62,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "rates_mts.pipelines.RatesMtsPipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "rates_mts.pipelines.DeleteHaoPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -100,4 +100,8 @@ FEEDS = {
         'format': 'csv',
         'overwrite': True
     },
+    'result_for_web/rates_mts.csv':{
+        'format': 'csv',
+        'overwrite': True
+    }
 }

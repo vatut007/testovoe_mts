@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="RU" class="no-js">
+<head>
+  <title>Полученные данные</title>
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
+    crossorigin="anonymous">
+</head>
+<body>
+    <table style = "border: 1px solid grey">
+      <tr style = "border: 1px solid grey"><th style = "border: 1px solid grey">Название</th><th style = "border: 1px solid grey">Описание</th><th style = "border: 1px solid grey">Цена</th><th style = "border: 1px solid grey">Параметры</th></tr>
+      {% for rate in rates %}
+      <tr style = "border: 1px solid grey"><td>{{rate.Name}}</td ><td style = "border: 1px solid grey">{{rate.Description}}</td><td style = "border: 1px solid grey">{{rate.Price}} {{rate.Quota}}</td><td style = "border: 1px solid grey">{{rate.Options}}</td></tr> <!--ряд с ячейками тела таблицы-->
+      {% endfor %}
+    </table>
+    <div class="col-3" style="background: white;"></div>
+    <a href="{%url 'run_parser'%}" class="btn btn-primary">Спарсить данные</a>
+    <a href="{%url 'clear_results'%}" class="btn btn-primary">Отчистить данные</a>
+</body>
+</html>

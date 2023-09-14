@@ -1,13 +1,11 @@
 import scrapy
-# from scrapy.shell import inspect_response
+import time
 from scrapy_playwright.page import PageMethod
 from rates_mts.items import RatesMtsItem
 
 
 class RatesSpider(scrapy.Spider):
     name = "rates"
-    # allowed_domains = ["moskva.mts.ru"]
-    # start_urls = ["https://moskva.mts.ru/personal/mobilnaya-svyaz/tarifi/vse-tarifi/mobile-tv-inet"]
 
     def start_requests(self):
         yield scrapy.Request("https://moskva.mts.ru/personal/mobilnaya-svyaz/tarifi/vse-tarifi/mobile-tv-inet",
@@ -20,7 +18,7 @@ class RatesSpider(scrapy.Spider):
                                    })
 
     def parse(self, response):
-        # inspect_response(response, self)
+        time.sleep(3)
         rates = response.xpath('//mts-tariff-card')
         for rate in rates:
             data = {

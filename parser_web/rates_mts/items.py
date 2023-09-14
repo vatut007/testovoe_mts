@@ -1,5 +1,6 @@
 import scrapy
 
+
 class RatesMtsItem(scrapy.Item):
     name = scrapy.Field()
     description = scrapy.Field()

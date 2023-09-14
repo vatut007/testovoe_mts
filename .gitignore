@@ -160,7 +160,8 @@ cython_debug/
 #.idea/
 /parser_web/dbs
 /results
+**/result_for_web
 
 
-/twistd.pid
-/parser_web/twistd.pid
+**/twistd.pid
+# /parser_web/twistd.pid
