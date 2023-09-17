@@ -7,24 +7,19 @@
 
 Установка проекта с помощью Docker-compose:
 1. Подготовить файлы для докер
-Изменить файл scrapyd.conf в директории scrapyd
-```
-[scrapyd]
-bind_address = 172.16.238.10
-http_port   = 6800
-```
+
 Изменить файл scrapy.cfg директории rates_mts/parser
 ```
 [settings]
 default = rates_mts.settings
 
 [deploy:local]
-url = http://172.16.238.10:6800/
+url = http://scrapyd:6800/
 project = rates_mts
 ```
 Изменить строчку в views.py директории rates_mts/rates_mts/rates
 ```
-client = ScrapydClient(url='https://172.16.238.10:6800')
+client = ScrapydClient(url='http://scrapyd:6800')
 ```
 2. Перейти в директорию compose
 ```
@@ -80,12 +75,7 @@ pip install -r scrapyd/requirements.txt
 ```
 scrapyd
 ```
-Для запуска Scrapyd локально в файле scrapyd.conf нужно указать 
-```
-[scrapyd]
-bind_address = 0.0.0.0
-http_port   = 6800
-```
+
 И в файле parser/scrapy.cfg
 ```
 [settings]
