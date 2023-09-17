@@ -8,10 +8,10 @@
 Установка проекта в совокупности (Parser_web и Rates \_Mts):
 
 1. Клонировать репозиторий:
-\```
+```
 Git clone
 [git\@github.com:vatut007/testovoe_mts.git](git@github.com:vatut007/testovoe_mts.git)
-\```
+```
 
 2. Создать и активировать виртуальное окуружение:
 
