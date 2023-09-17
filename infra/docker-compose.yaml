@@ -3,7 +3,7 @@ services:
   scrapyd:
     build: ../scrapyd
     ports:
-      - 6800:6800
+      - "6800:6800"
     volumes:
       - rates_value:/app/parser/result_for_web/
   rates_mts:

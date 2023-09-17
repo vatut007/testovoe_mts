@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from scrapyd_client import ScrapydClient
 import logging
 
-client = ScrapydClient(url='https://scrapyd:6800/')
+client = ScrapydClient(url='http://scrapyd:6800')
 
 Rates = namedtuple('Rates', 'Name Description Price Options Quota')
 
