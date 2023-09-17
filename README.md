@@ -3,6 +3,8 @@
 Сервис позволяет парсить публичные тарифы МТС Связь ТВ и интернет. Состоит из
 двух проектов: parser основанный на scrapy и rates_mts с помощью Django.
 
+Доступен по адресу http://83.166.240.151:8000/rates
+
 Технологии: Python,scrapy, scrapy-deploy, scrapy-playwright, Django.
 
 Установка проекта с помощью Docker-compose:
