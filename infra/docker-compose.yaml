@@ -6,10 +6,6 @@ services:
       - 6800:6800
     volumes:
       - rates_value:/app/parser/result_for_web/
-    networks:
-      front-tier:
-        ipv4_address: 172.16.238.10
-        ipv6_address: 2001:3984:3989::10
   rates_mts:
     build: ../rates_mts
     restart: always
@@ -19,16 +15,5 @@ services:
       - rates_value:/app/parser/result_for_web/
     depends_on:
       - scrapyd
-    networks:
-      front-tier:
-        ipv4_address: 172.16.238.11
-        ipv6_address: 2001:3984:3989::10
-networks:
-  front-tier:
-    ipam:
-      driver: default
-      config:
-        - subnet: "172.16.238.0/24"
-        - subnet: "2001:3984:3989::/64"
 volumes:
   rates_value:

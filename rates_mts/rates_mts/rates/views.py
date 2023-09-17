@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from scrapyd_client import ScrapydClient
 import logging
 
-client = ScrapydClient(url='http://172.16.238.10:6800')
+client = ScrapydClient(url='https://scrapyd:6800/')
 
 Rates = namedtuple('Rates', 'Name Description Price Options Quota')
 
@@ -52,7 +52,7 @@ def rates_list(request):
 
 def clear_results(request):
     try:
-        os.remove('../parser_web/result_for_web/rates_mts.csv')
+        os.remove('../parser/result_for_web/rates_mts.csv')
     except FileNotFoundError:
         logging.info('Файл не существует')
     return redirect('rates')

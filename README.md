@@ -5,7 +5,43 @@
 
 Технологии: Python,scrapy, scrapy-deploy, scrapy-playwright, Django.
 
-Установка проекта в совокупности (Parser_web и Rates \_Mts):
+Установка проекта с помощью Docker-compose:
+1. Подготовить файлы для докер
+Изменить файл scrapyd.conf в директории scrapyd
+```
+[scrapyd]
+bind_address = 172.16.238.10
+http_port   = 6800
+```
+Изменить файл scrapy.cfg директории rates_mts/parser
+```
+[settings]
+default = rates_mts.settings
+
+[deploy:local]
+url = http://172.16.238.10:6800/
+project = rates_mts
+```
+Изменить строчку в views.py директории rates_mts/rates_mts/rates
+```
+client = ScrapydClient(url='https://172.16.238.10:6800')
+```
+2. Перейти в директорию compose
+```
+cd infra
+```
+3. выполнить 
+```
+docker-compose up -d --build 
+```
+4. После запуска контенера выполнить
+```
+docker-compose exec -w /app/parser rates_mts scrapyd-deploy local -p rates_mts
+```
+
+После запуска проект будет доступен по адресу: http://localhost:8000/rates
+
+Установка проекта в совокупности (Parser_web и Rates \_Mts) без докер:
 
 1. Клонировать репозиторий:
 ```
@@ -33,9 +69,9 @@ source venv/scripts/activate
 ```
 python -m pip install --upgrade pip
 
-pip install –r rates_mts/requirements.txt
+pip install -r rates_mts/requirements.txt
 
-pip install –r parser/requirements.txt
+pip install -r scrapyd/requirements.txt
 ```
 
 Для работы проекта нужно запустить два сервиса Scrapyd и наш сервис.
@@ -44,17 +80,41 @@ pip install –r parser/requirements.txt
 ```
 scrapyd
 ```
+Для запуска Scrapyd локально в файле scrapyd.conf нужно указать 
+```
+[scrapyd]
+bind_address = 0.0.0.0
+http_port   = 6800
+```
+И в файле parser/scrapy.cfg
+```
+[settings]
+default = rates_mts.settings
+
+[deploy:local]
+url = http://0.0.0.0:6800/
+project = rates_mts
+```
+И в файле rates_mts/rates_mts/rates
+```
+client = ScrapydClient()
+
+```
+Далле запустить сервис scrapyd
+```
+scrapyd
+```
 Нужно передать spiders из проекта scrapy в сервис scrapyd. Для этого выполняется
 команда в директории где находится setup.py scrapy.
 ```
-cd parser
+cd rates_mts/parser
 
-scrapyd-deploy local –p rates_mts
+scrapyd-deploy local -p rates_mts
 ```
 
 Далее в другом терминале нужно запустить наш сервис rates_mts
 ```
-cd ../rates_mts
+cd /rates_mts/rates_mts
 ```
 ```
 python manage.py runserver
