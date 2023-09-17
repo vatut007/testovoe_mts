@@ -20,7 +20,6 @@ class RatesSpider(scrapy.Spider):
                                    })
 
     def parse(self, response):
-        time.sleep(3)
         rates = response.xpath('//mts-tariff-card')
         for rate in rates:
             data = {

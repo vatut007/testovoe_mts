@@ -23,7 +23,7 @@ def run_parser(request):
         for job in jobs['finished']:
             if job['id'] == job_id:
                 find_job = True
-        time.sleep(3)
+        time.sleep(1)
         check_job(find_job=find_job)
     check_job(find_job=False)
     return redirect('rates')
