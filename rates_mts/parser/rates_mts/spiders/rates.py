@@ -1,6 +1,8 @@
-import scrapy
 import time
+
+import scrapy
 from scrapy_playwright.page import PageMethod
+
 from rates_mts.items import RatesMtsItem
 
 

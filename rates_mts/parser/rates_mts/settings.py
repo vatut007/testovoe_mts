@@ -96,11 +96,11 @@ DOWNLOAD_HANDLERS = {
     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
 }
 FEEDS = {
-    '../results/rates_mts_%(time)s.csv': {
+    '/results/rates_mts_%(time)s.csv': {
         'format': 'csv',
         'overwrite': True
     },
-    'result_for_web/rates_mts.csv':{
+    '/result_for_web/rates_mts.csv':{
         'format': 'csv',
         'overwrite': True
     }

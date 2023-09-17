@@ -1,12 +1,13 @@
-import os.path
-from scrapyd_client import ScrapydClient
-from django.shortcuts import render, redirect
 import csv
-from collections import namedtuple
+import os.path
 import time
+from collections import namedtuple
 
+from django.shortcuts import redirect, render
+from scrapyd_client import ScrapydClient
+import logging
 
-client = ScrapydClient()
+client = ScrapydClient(url='http://172.16.238.10:6800')
 
 Rates = namedtuple('Rates', 'Name Description Price Options Quota')
 
@@ -32,7 +33,7 @@ def rates_list(request):
     template = 'rates/rates.html'
     rates = []
     try:
-        with open("../parser_web/result_for_web/rates_mts.csv",
+        with open("../parser/result_for_web/rates_mts.csv",
                   encoding='utf-8') as r_file:
             file_reader = csv.DictReader(r_file, delimiter=',', strict=True)
             for row in file_reader:
@@ -42,7 +43,7 @@ def rates_list(request):
                                    Quota=row['quota'],
                                    Options=row['options']))
     except FileNotFoundError:
-        print('Файл не существует')
+        logging.info('Файл не существует')
     context = {
         'rates': rates
     }
@@ -53,5 +54,5 @@ def clear_results(request):
     try:
         os.remove('../parser_web/result_for_web/rates_mts.csv')
     except FileNotFoundError:
-        print('Файл не существует')
+        logging.info('Файл не существует')
     return redirect('rates')
