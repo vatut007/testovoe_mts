@@ -14,19 +14,9 @@ Rates = namedtuple('Rates', 'Name Description Price Options Quota')
 
 def run_parser(request):
     job_id = client.schedule('rates_mts', 'rates')
-
-    def check_job(find_job):
-        if find_job is True:
-            return
-        find_job = False
-        jobs = client.jobs('rates_mts')
-        for job in jobs['finished']:
-            if job['id'] == job_id:
-                find_job = True
-        time.sleep(0.3)
-        check_job(find_job=find_job)
-    check_job(find_job=False)
-    return redirect('rates')
+    parameters = {'job_id': job_id}
+    request.session['parameters'] = parameters
+    return redirect('rates_wait')
 
 
 def rates_list(request):
@@ -56,3 +46,16 @@ def clear_results(request):
     except FileNotFoundError:
         logging.info('Файл не существует')
     return redirect('rates')
+
+
+def waiting_for_pasring(request):
+    parameters = request.session.pop('parameters', {})
+    job_id = parameters.get('job_id')
+    jobs = client.jobs('rates_mts')
+    for job in jobs['finished']:
+        if job['id'] == job_id:
+            return redirect('rates')
+    parameters = {'job_id': job_id}
+    request.session['parameters'] = parameters
+    time.sleep(3)
+    return redirect('rates_wait')

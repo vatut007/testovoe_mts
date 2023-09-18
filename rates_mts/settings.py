@@ -105,3 +105,6 @@ FEEDS = {
         'overwrite': True
     }
 }
+MIDDLEWARE = [
+      'django.contrib.sessions.middleware.SessionMiddleware',
+  ]
