@@ -57,5 +57,5 @@ def waiting_for_pasring(request):
             return redirect('rates')
     parameters = {'job_id': job_id}
     request.session['parameters'] = parameters
-    time.sleep(3)
+    time.sleep(0.5)
     return redirect('rates_wait')

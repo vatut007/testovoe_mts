@@ -5,5 +5,8 @@ RUN pip3 install -r /app/requirements.txt --no-cache-dir
 COPY ./rates_mts /app/rates_mts
 COPY ./parser /app/parser
 COPY settings.py /app/parser/rates_mts
+WORKDIR /app/parser
+RUN scrapyd local -p rates_mts
 WORKDIR /app/rates_mts
+RUN python manage.py migrate
 CMD ["gunicorn", "rates_mts.wsgi:application", "--bind", "0:8000" ]
